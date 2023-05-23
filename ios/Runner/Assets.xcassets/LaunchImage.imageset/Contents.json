@@ -1,18 +1,14 @@
 {
   "images" : [
     {
-      "compression-type" : "automatic",
-      "filename" : "LaunchImage.png",
       "idiom" : "iphone",
       "scale" : "1x"
     },
     {
-      "filename" : "LaunchImage@2x.png",
       "idiom" : "iphone",
       "scale" : "2x"
     },
     {
-      "filename" : "LaunchImage@3x.png",
       "idiom" : "iphone",
       "scale" : "3x"
     }

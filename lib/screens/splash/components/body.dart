@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inquize/constants.dart';
 import 'package:inquize/screens/sign_in/sign_in_screen.dart';
 import 'package:inquize/size_config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // This is the best practice
 import '../components/splash_content.dart';
@@ -14,6 +15,8 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   int currentPage = 0;
+
+
   List<Map<String, String>> splashData = [
     {
       "text": "",
@@ -29,6 +32,9 @@ class _BodyState extends State<Body> {
       "image": "assets/images/splash_3.png"
     },
   ];
+
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -36,8 +42,10 @@ class _BodyState extends State<Body> {
         width: double.infinity,
         child: Column(
           children: <Widget>[
+            Image.asset(
+              'assets/images/logo.png',height: getProportionateScreenWidth(100),),
             Expanded(
-              flex: 3,
+              flex: 2,
               child: PageView.builder(
                 onPageChanged: (value) {
                   setState(() {
@@ -70,7 +78,8 @@ class _BodyState extends State<Body> {
                     DefaultButton(
                       text: "Continue",
                       press: () {
-                        Navigator.pushNamed(context, SignInScreen.routeName);
+                        _saveData();
+
                       },
                     ),
                     Spacer(),
@@ -95,5 +104,13 @@ class _BodyState extends State<Body> {
         borderRadius: BorderRadius.circular(3),
       ),
     );
+  }
+
+  _saveData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.setString('firstTime','done');
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/sign', ModalRoute.withName('/sign'));
   }
 }

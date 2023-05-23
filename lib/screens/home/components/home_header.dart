@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:inquize/screens/message/message_screen.dart';
 import '../../../size_config.dart';
 import 'icon_btn_with_counter.dart';
 
@@ -18,20 +19,21 @@ class HomeHeader extends StatelessWidget {
         children: [
           //SearchField(),
           Image.asset(
-            'assets/images/logo.png',height: getProportionateScreenWidth(60),),
+            'assets/images/logo.png',height: getProportionateScreenWidth(50),),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconBtnWithCounter(
-                svgSrc: Icons.notifications_none,
-                numOfitem: 3,
+                svgSrc: 'assets/icons/bell.png',
+
                 press: () {},
               ),
-              SizedBox(width: 5,),
               IconBtnWithCounter(
-                svgSrc: Icons.send,
+                svgSrc: 'assets/icons/send.png',
                 numOfitem: 5,
-                press: () {},
+                press: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>MessageScreen()));
+                },
               ),
             ],
           ),

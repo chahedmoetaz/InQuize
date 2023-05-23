@@ -1,8 +1,15 @@
+import 'dart:convert';
+
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:inquize/components/custom_surfix_icon.dart';
 import 'package:inquize/components/default_button.dart';
 import 'package:inquize/components/form_error.dart';
-import 'package:inquize/screens/complete_profile/complete_profile_screen.dart';
+
+import 'package:inquize/provider/auth-provider.dart';
+
+import 'package:inquize/screens/sign_in/sign_in_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -39,6 +46,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider auth = Provider.of<AuthProvider>(context);
     return Form(
       key: _formKey,
       child: Column(
@@ -51,14 +59,34 @@ class _SignUpFormState extends State<SignUpForm> {
           SizedBox(height: getProportionateScreenHeight(30)),
           buildConformPassFormField(),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(40)),
+          SizedBox(height: getProportionateScreenHeight(15)),
           DefaultButton(
             text: "Continue",
-            press: () {
+            press: () async {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
-                // if all are valid then go to success screen
-                Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+                print(username!+ email!+password!);
+                if(errors.length==0)
+              await auth.register(username!, email!, password!).then((response){
+
+
+                 if (response.statusCode == 200){
+
+
+                   Navigator.pushNamed(context, SignInScreen.routeName);
+                 } else {
+                   Flushbar(
+                     title: "Registration Failed",
+                     message: response.toString(),
+                     duration: Duration(seconds: 5),
+                   ).show(context);
+                 }
+               });
+
+
+
+
+
               }
             },
           ),

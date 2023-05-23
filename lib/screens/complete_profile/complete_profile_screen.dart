@@ -11,9 +11,9 @@ class CompleteProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Platform.isIOS?Icons.arrow_back_ios_outlined:Icons.arrow_back), onPressed: () { Navigator.pop(context); },
-        ),
+        leading: IconButton(icon: Icon(Platform.isIOS?Icons.arrow_back_ios_outlined:Icons.arrow_back),onPressed:()=> Navigator.pop(context),),
+
+        centerTitle: true,
         title: Text('Edit Profile',
           style: TextStyle(color: Colors.black,fontSize: getProportionateScreenWidth(19),fontWeight: FontWeight.w700),
         ),

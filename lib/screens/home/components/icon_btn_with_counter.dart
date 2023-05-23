@@ -12,7 +12,7 @@ class IconBtnWithCounter extends StatelessWidget {
     required this.press,
   }) : super(key: key);
 
-  final IconData svgSrc;
+  final String svgSrc;
   final int numOfitem;
   final GestureTapCallback press;
 
@@ -29,10 +29,10 @@ class IconBtnWithCounter extends StatelessWidget {
             height: getProportionateScreenWidth(46),
             width: getProportionateScreenWidth(46),
             decoration: BoxDecoration(
-              color: kSecondaryColor.withOpacity(0.1),
+             // color:Colors.transparent,
               shape: BoxShape.circle,
             ),
-            child: Icon(svgSrc,),
+            child: Image.asset(svgSrc,height: 30,),
           ),
           if (numOfitem != 0)
             Positioned(
@@ -42,7 +42,7 @@ class IconBtnWithCounter extends StatelessWidget {
                 height: getProportionateScreenWidth(16),
                 width: getProportionateScreenWidth(16),
                 decoration: BoxDecoration(
-                  color: Color(0xFFFF4848),
+                  color: Color(0xFFE41A79),
                   shape: BoxShape.circle,
                   border: Border.all(width: 1.5, color: Colors.white),
                 ),

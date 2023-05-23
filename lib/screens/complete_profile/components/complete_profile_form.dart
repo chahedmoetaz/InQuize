@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:inquize/components/custom_surfix_icon.dart';
 import 'package:inquize/components/default_button.dart';
 import 'package:inquize/components/form_error.dart';
+import 'package:inquize/helper/keyboard.dart';
+import 'package:inquize/models/user.dart';
+import 'package:inquize/provider/user-provider.dart';
+import 'package:inquize/provider/user.dart';
+import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
@@ -25,7 +30,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       });
   }
 
-  void removeError({String? error}) {
+  void removeError({  String? error}) {
     if (errors.contains(error))
       setState(() {
         errors.remove(error);
@@ -48,9 +53,30 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "EDIT",
-            press: () {
+            text: "Save",
+            press: () async {
               if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
+                // if all are valid then go to success screen
+                KeyboardUtil.hideKeyboard(context);
+                if(errors.length==0)
+    await UserData().fetchUser().then((user) async {
+
+               await UserData().updateUser(phoneNumber!,firstName!,lastName!,address!).then((value) async => {
+
+                 if(value.statusCode==200){
+
+                   Provider.of<UserProvider>(context, listen: false).setUser(User(firstname: firstName!,
+                       lastname:lastName!,phone: phoneNumber!,adresse: address!,userId: user.userId,
+                       username: user.username,token: user.token,email: user.email,following:user.following,participations: user.participations
+                   ,website: user.website)),
+                   Navigator.pushNamedAndRemoveUntil(
+                       context, '/details_account', ModalRoute.withName('/details_account')),
+                 }
+                 else Navigator.pop(context)
+                 });
+
+               });
 
               }
             },
@@ -96,11 +122,19 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         if (value.isNotEmpty) {
           removeError(error: kPhoneNumberNullError);
         }
+        if(value.length==8){
+          removeError(error: kPhoneNumberMoreError);
+
+        }
         return null;
       },
       validator: (value) {
         if (value!.isEmpty) {
           addError(error: kPhoneNumberNullError);
+          return "";
+        }
+        else if(value.length!=8){
+          addError(error: kPhoneNumberMoreError);
           return "";
         }
         return null;
@@ -132,7 +166,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   TextFormField buildFirstNameFormField() {
     return TextFormField(
-      onSaved: (newValue) => firstName = newValue,
+      onSaved: (newValue) => setState((){firstName = newValue;}),
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kNamelNullError);
@@ -156,4 +190,6 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       ),
     );
   }
+
+
 }

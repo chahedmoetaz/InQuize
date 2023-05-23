@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:inquize/screens/details_account/details_account_screen.dart';
 import 'package:inquize/screens/home/home_screen.dart';
 import 'package:inquize/screens/news/news_screen.dart';
 import 'package:inquize/screens/profile/profile_screen.dart';
 import 'package:inquize/screens/search/search_screen.dart';
+import 'package:inquize/size_config.dart';
 
 import '../constants.dart';
 import '../enums.dart';
@@ -30,62 +32,72 @@ class CustomBottomNavBar extends StatelessWidget {
             color: Color(0xFFDADADA).withOpacity(0.15),
           ),
         ],
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(40),
-          topRight: Radius.circular(40),
-        ),
+
       ),
       child: SafeArea(
           top: false,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              IconButton(
-                icon: Icon(
-                  Icons.home_outlined,
-                  color: MenuState.home == selectedMenu
-                      ? kPrimaryLightColor
-                      : inActiveIconColor,
+              GestureDetector(
+                child: SizedBox(
+                  height: getProportionateScreenWidth(40),
+                  child: Image.asset("assets/icons/home.png",
+                    color: MenuState.home == selectedMenu
+                        ? kPrimaryLightColor
+                        : inActiveIconColor,
+                  ),
                 ),
-                onPressed: () =>
+                onTap: () =>
                     Navigator.pushNamed(context, HomeScreen.routeName),
               ),
-              IconButton(
-                icon: SvgPicture.asset("assets/icons/Search Icon.svg",
-                  color: MenuState.search == selectedMenu
-                      ? kPrimaryLightColor
-                      : inActiveIconColor,
+              GestureDetector(
+                  child: SizedBox(
+                    height: getProportionateScreenWidth(40),
+                    child: Image.asset("assets/icons/search.png",
+                    color: MenuState.search == selectedMenu
+                        ? kPrimaryLightColor
+                        : inActiveIconColor,
+                  ),
                 ),
-                onPressed: () =>{ Navigator.pushNamed(context, SearchScreen.routeName),}
+                onTap: () =>{ Navigator.pushNamed(context, SearchScreen.routeName),}
 
               ),
-              IconButton(
-                icon: Icon(Icons.qr_code,
-                  color: MenuState.qr == selectedMenu
-                      ? kPrimaryLightColor
-                      : inActiveIconColor,
+              GestureDetector(
+                child: SizedBox(
+                  height: getProportionateScreenWidth(40),
+                  child: Image.asset("assets/icons/scan.png",
+                    color: MenuState.qr == selectedMenu
+                        ? kPrimaryLightColor
+                        : inActiveIconColor,
+                  ),
                 ),
-                onPressed: () =>
+                onTap: () =>
                 {},
               ),
-              IconButton(
-                icon: Icon(Icons.wifi,
-                  color: MenuState.news == selectedMenu
-                      ? kPrimaryLightColor
-                      : inActiveIconColor,
+              GestureDetector(
+                child: SizedBox(
+                  height: getProportionateScreenWidth(40),
+                  child: Image.asset("assets/icons/brand-safari.png",
+                    color: MenuState.news == selectedMenu
+                        ? kPrimaryLightColor
+                        : inActiveIconColor,
+                  ),
                 ),
-                onPressed: () =>
+                onTap: () =>
                     Navigator.pushNamed(context, NewsScreen.routeName),
               ),
-              IconButton(
-                icon: SvgPicture.asset(
-                  "assets/icons/User Icon.svg",
-                  color: MenuState.profile == selectedMenu
-                      ? kPrimaryLightColor
-                      : inActiveIconColor,
+              GestureDetector(
+                child: SizedBox(
+                  height: getProportionateScreenWidth(40),
+                  child: Image.asset("assets/icons/user.png",
+                    color: MenuState.profile == selectedMenu
+                        ? kPrimaryLightColor
+                        : inActiveIconColor,
+                  ),
                 ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, ProfileScreen.routeName),
+                onTap: () =>
+                    Navigator.pushNamed(context, DetailsAccountScreen.routeName),
               ),
             ],
           )),

@@ -26,9 +26,25 @@ class Body extends StatelessWidget {
                         unselectedLabelColor: Colors.black,
                         indicatorColor: kPrimaryLightColor,
                         tabs: [
-                          Tab(icon: Icon(Icons.bookmark_outline_rounded)),
-                          Tab(icon: Icon(Icons.group_work_sharp)),
-                          Tab(icon: Icon(Icons.check)),
+                          Tab(icon: FittedBox(
+                            child: Text('Followed',style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: getProportionateScreenWidth(14),
+                                )),
+                          )),
+                          Tab(icon: FittedBox(
+                            child: Text('Location',style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: getProportionateScreenWidth(14),
+                            )),
+                          )),
+                          Tab(icon: FittedBox(
+                            child: Text('Participations',style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: getProportionateScreenWidth(14),
+                            )),
+                          )),
+
 
 
                         ],
@@ -39,43 +55,40 @@ class Body extends StatelessWidget {
                         decoration: BoxDecoration(
                             border: Border(top: BorderSide(color: Colors.grey, width: 0.5))
                         ),
-                        child: Padding(
-                          padding: padding,
-                          child: TabBarView(children: <Widget>[
+                        child: TabBarView(children: <Widget>[
 
-                            SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  SizedBox(height: getProportionateScreenWidth(10)),
-                                  Post(),
-                                  SizedBox(height: getProportionateScreenWidth(20)),
-                                  Post(),
-                                ],
-                              ),
+                          SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                SizedBox(height: getProportionateScreenWidth(10)),
+                                Post(),
+                                SizedBox(height: getProportionateScreenWidth(20)),
+                                Post(),
+                              ],
                             ),
-                            SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  SizedBox(height: getProportionateScreenWidth(10)),
-                                  Post(),
-                                  SizedBox(height: getProportionateScreenWidth(20)),
-                                  Post(),
-                                ],
-                              ),
+                          ),
+                          SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                SizedBox(height: getProportionateScreenWidth(10)),
+                                Post(),
+                                SizedBox(height: getProportionateScreenWidth(20)),
+                                Post(),
+                              ],
                             ),
-                            SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  SizedBox(height: getProportionateScreenWidth(10)),
-                                  Post(),
-                                  SizedBox(height: getProportionateScreenWidth(20)),
-                                  Post(),
-                                ],
-                              ),
+                          ),
+                          SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                SizedBox(height: getProportionateScreenWidth(10)),
+                                Post(),
+                                SizedBox(height: getProportionateScreenWidth(20)),
+                                Post(),
+                              ],
                             ),
+                          ),
 
-                          ]),
-                        )
+                        ])
                     )
                   ])
           ),

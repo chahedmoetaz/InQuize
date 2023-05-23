@@ -16,8 +16,7 @@ class SplashContent extends StatelessWidget {
     return Column(
       children: <Widget>[
         Spacer(),
-    Image.asset(
-    'assets/images/logo.png',height: getProportionateScreenWidth(100),),
+
         Text(
           text!,
           textAlign: TextAlign.center,
